@@ -32,14 +32,19 @@ const countries = [
   { value: 'brazil', label: 'Brasil', flag: '🇧🇷' },
 ];
 
-const LoginScreen: React.FC = () => {
+interface LoginScreenProps {
+  onLogin?: () => void;
+}
+
+const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [country, setCountry] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Login attempt:', { username, password, country });
+    // Aquí puedes validar usuario/contraseña si quieres
+    if (onLogin) onLogin();
   };
 
   // Color mode values

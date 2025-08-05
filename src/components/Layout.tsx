@@ -23,10 +23,14 @@ import UserProfile from './UserProfile';
 import UserAvatar from './UserAvatar';
 import { useUser } from '../contexts/UserContext';
 
-const Layout: React.FC = () => {
-  // Cargar sección activa desde localStorage o usar 'dashboard' por defecto
+interface LayoutProps {
+  initialSection?: string;
+}
+
+const Layout: React.FC<LayoutProps> = ({ initialSection }) => {
+  // Cargar sección activa desde initialSection, localStorage o usar 'dashboard' por defecto
   const [activeSection, setActiveSection] = useState(() => {
-    return localStorage.getItem('flota-admin-active-section') || 'dashboard';
+    return initialSection || localStorage.getItem('flota-admin-active-section') || 'dashboard';
   });
   
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
