@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/flota-admin/static/css/main.e6c13ad2.css",
+    "main.js": "/flota-admin/static/js/main.4fc847fc.js",
+    "static/js/453.33d03d0e.chunk.js": "/flota-admin/static/js/453.33d03d0e.chunk.js",
+    "index.html": "/flota-admin/index.html",
+    "main.e6c13ad2.css.map": "/flota-admin/static/css/main.e6c13ad2.css.map",
+    "main.4fc847fc.js.map": "/flota-admin/static/js/main.4fc847fc.js.map",
+    "453.33d03d0e.chunk.js.map": "/flota-admin/static/js/453.33d03d0e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.4fc847fc.js"
+  ]
+}
