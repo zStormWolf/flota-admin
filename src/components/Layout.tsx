@@ -21,6 +21,13 @@ import Dashboard from './Dashboard';
 import ThemeSelector from './ThemeSelector';
 import UserProfile from './UserProfile';
 import UserAvatar from './UserAvatar';
+import Vehicles from './Vehicles';
+import VehicleDetails from './VehicleDetails';
+import VehicleEdit from './VehicleEdit';
+import Maintenance from './Maintenance';
+import Mileage from './Mileage';
+import Consumption from './Consumption';
+import Settings from './Settings';
 import { useUser } from '../contexts/UserContext';
 
 interface LayoutProps {
@@ -69,19 +76,19 @@ const Layout: React.FC<LayoutProps> = ({ initialSection }) => {
       case 'dashboard':
         return <Dashboard />;
       case 'vehicles':
-        return (
-          <Box p={8}>
-            <Box textAlign="center" py={20}>
-              <Box fontSize="6xl" mb={4}>🚛</Box>
-              <Box fontSize="2xl" fontWeight="bold" color="gray.700" mb={2}>
-                Inventario de Vehículos
-              </Box>
-              <Box color="gray.500">
-                Sección en desarrollo - Aquí se mostrará el inventario completo de la flota
-              </Box>
-            </Box>
-          </Box>
-        );
+        return <Vehicles />;
+      case 'vehicle-details':
+        return <VehicleDetails vehicleId="ABC-123" onBack={() => handleSectionChange('vehicles')} onEdit={() => handleSectionChange('vehicle-edit')} />;
+      case 'vehicle-edit':
+        return <VehicleEdit vehicleId="ABC-123" onBack={() => handleSectionChange('vehicle-details')} onSave={() => handleSectionChange('vehicle-details')} />;
+      case 'maintenance':
+        return <Maintenance />;
+      case 'mileage':
+        return <Mileage />;
+      case 'consumption':
+        return <Consumption />;
+      case 'settings':
+        return <Settings />;
       case 'damages':
         return (
           <Box p={8}>
@@ -256,7 +263,21 @@ const Layout: React.FC<LayoutProps> = ({ initialSection }) => {
               onClick={isMobile ? onToggle : handleSidebarToggle}
             />
             {!isMobile && (
-              <Box fontSize="lg" fontWeight="bold" color={logoColor}>
+              <Box 
+                fontSize="lg" 
+                fontWeight="bold" 
+                color={logoColor}
+                cursor="pointer"
+                onClick={() => handleSectionChange('dashboard')}
+                _hover={{
+                  color: 'blue.500',
+                  transform: 'translateY(-1px)',
+                }}
+                transition="all 0.2s ease"
+                px={2}
+                py={1}
+                borderRadius="md"
+              >
                 FlotaAdmin
               </Box>
             )}

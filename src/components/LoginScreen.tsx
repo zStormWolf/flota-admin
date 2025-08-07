@@ -12,10 +12,9 @@ import {
   FormLabel,
   InputGroup,
   InputLeftElement,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
+  InputRightElement,
+  IconButton,
+  Select,
   useColorModeValue,
 } from '@chakra-ui/react';
 
@@ -40,6 +39,8 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [country, setCountry] = useState('');
+  const [showCountries, setShowCountries] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,9 +73,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
       />
       
       {/* Main content */}
-      <Container
-        maxW="md"
-        centerContent
+      <Box
         position="relative"
         zIndex={2}
         minH="100vh"
@@ -82,20 +81,22 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
         alignItems="center"
         justifyContent="center"
         px={4}
+        py={8}
       >
         <Box
           bg={cardBg}
           backdropFilter="blur(10px)"
-          borderRadius="2xl"
-          boxShadow="2xl"
+          borderRadius="20px"
+          boxShadow="xl"
           p={8}
           w="100%"
           maxW="420px"
           border="1px solid"
-          borderColor="whiteAlpha.200"
+          borderColor="whiteAlpha.300"
+          mx="auto"
         >
           {/* Logo and Header */}
-          <VStack spacing={6} align="center" mb={8}>
+          <VStack spacing={4} align="center" mb={6}>
             <HStack spacing={3}>
               <Text fontSize="4xl">🚛</Text>
               <Heading size="xl" color="gray.700" fontWeight="bold">
@@ -150,7 +151,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
                     <Text fontSize="lg">🔒</Text>
                   </InputLeftElement>
                   <Input
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                     placeholder="Ingresa tu contraseña"
@@ -159,6 +160,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
                     borderColor="gray.200"
                     borderRadius="xl"
                     size="lg"
+                    pr="4.5rem"
                     _hover={{
                       borderColor: 'gray.300',
                     }}
@@ -167,72 +169,164 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
                       boxShadow: '0 0 0 3px rgba(59, 130, 246, 0.1)',
                     }}
                   />
+                  <InputRightElement width="4.5rem">
+                    <IconButton
+                      aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                      icon={
+                        <Box as="svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+                          {showPassword ? (
+                            // Eye slash icon (hidden)
+                            <>
+                              <path
+                                d="M9.88 9.88a3 3 0 1 0 4.24 4.24"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                              <path
+                                d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                              <path
+                                d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                              <line
+                                x1="2"
+                                y1="2"
+                                x2="22"
+                                y2="22"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                              />
+                            </>
+                          ) : (
+                            // Eye icon (visible)
+                            <>
+                              <path
+                                d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                              <circle
+                                cx="12"
+                                cy="12"
+                                r="3"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </>
+                          )}
+                        </Box>
+                      }
+                      variant="ghost"
+                      size="sm"
+                      color="gray.500"
+                      onClick={() => setShowPassword(!showPassword)}
+                      _hover={{
+                        bg: 'gray.100',
+                        color: 'gray.700',
+                      }}
+                      _active={{
+                        bg: 'gray.200',
+                      }}
+                    />
+                  </InputRightElement>
                 </InputGroup>
               </FormControl>
 
               {/* Country Selector */}
-              <FormControl>
-                <FormLabel fontSize="sm" fontWeight="600" color="gray.700">
+              <FormControl position="relative">
+                <FormLabel color="gray.700" fontWeight="600" fontSize="sm">
                   País
                 </FormLabel>
-                <Menu>
-                  <MenuButton
-                    as={Button}
-                    rightIcon={<Text fontSize="sm">▼</Text>}
-                    w="100%"
-                    bg={inputBg}
-                    border="1.5px solid"
-                    borderColor="gray.200"
-                    borderRadius="xl"
-                    size="lg"
-                    textAlign="left"
-                    fontWeight="normal"
-                    pl={12}
-                    _hover={{
-                      borderColor: 'gray.300',
-                      transform: 'translateY(-1px)',
-                    }}
-                    _active={{
-                      borderColor: 'blue.400',
-                      boxShadow: '0 0 0 3px rgba(59, 130, 246, 0.1)',
-                      transform: 'translateY(-1px)',
-                    }}
-                    transition="all 0.3s ease"
-                  >
-                    <HStack>
-                      <Text fontSize="lg" position="absolute" left={4}>🌍</Text>
-                      <Text color={country ? 'gray.800' : 'gray.500'}>
-                        {country 
-                          ? `${countries.find(c => c.value === country)?.flag} ${countries.find(c => c.value === country)?.label}`
-                          : 'Selecciona tu país'
-                        }
-                      </Text>
-                    </HStack>
-                  </MenuButton>
-                  <MenuList
+                <Button
+                  variant="outline"
+                  w="100%"
+                  h="50px"
+                  justifyContent="space-between"
+                  border="1.5px solid"
+                  borderColor="gray.300"
+                  borderRadius="xl"
+                  bg={inputBg}
+                  fontWeight="normal"
+                  onClick={() => setShowCountries(!showCountries)}
+                  _hover={{
+                    borderColor: 'blue.400',
+                    boxShadow: '0 0 0 1px #3182ce',
+                  }}
+                  _focus={{
+                    borderColor: 'blue.500',
+                    boxShadow: '0 0 0 3px rgba(49, 130, 206, 0.1)',
+                  }}
+                  transition="all 0.3s ease"
+                >
+                  <HStack>
+                    <Text fontSize="lg">
+                      {country ? (countries.find(c => c.value === country)?.flag || '🌍') : '🌍'}
+                    </Text>
+                    <Text color={country ? 'gray.800' : 'gray.500'}>
+                      {country ? (countries.find(c => c.value === country)?.label || 'País') : 'Selecciona tu país'}
+                    </Text>
+                  </HStack>
+                  <Text fontSize="sm" color="gray.400">
+                    {showCountries ? '▲' : '▼'}
+                  </Text>
+                </Button>
+                
+                {/* Custom Dropdown */}
+                {showCountries && (
+                  <Box
+                    position="absolute"
+                    top="100%"
+                    left={0}
+                    right={0}
+                    zIndex={1000}
                     bg="white"
                     border="1.5px solid"
                     borderColor="gray.200"
                     borderRadius="xl"
                     boxShadow="xl"
-                    py={2}
+                    mt={1}
+                    maxH="200px"
+                    overflowY="auto"
                   >
                     {countries.map((countryItem) => (
-                      <MenuItem
+                      <Button
                         key={countryItem.value}
-                        onClick={() => setCountry(countryItem.value)}
-                        _hover={{ bg: 'blue.50' }}
-                        _focus={{ bg: 'blue.100' }}
+                        variant="ghost"
+                        w="100%"
+                        h="auto"
+                        py={3}
+                        px={4}
+                        justifyContent="flex-start"
                         borderRadius="lg"
-                        mx={2}
-                        my={1}
+                        _hover={{ bg: 'blue.50' }}
+                        onClick={() => {
+                          setCountry(countryItem.value);
+                          setShowCountries(false);
+                        }}
                       >
-                        <Text fontSize="lg" mr={3}>{countryItem.flag}</Text>
-                        <Text>{countryItem.label}</Text>
-                      </MenuItem>
+                        <HStack>
+                          <Text fontSize="lg">{countryItem.flag}</Text>
+                          <Text>{countryItem.label}</Text>
+                        </HStack>
+                      </Button>
                     ))}
-                  </MenuList>
-                </Menu>
+                  </Box>
+                )}
               </FormControl>
 
               {/* Login Button */}
@@ -255,7 +349,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
               </Button>
 
               {/* Links */}
-              <VStack spacing={3} pt={4}>
+              <VStack spacing={2} pt={3}>
                 <Button
                   variant="ghost"
                   fontSize="sm"
@@ -286,17 +380,21 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
           </form>
         </Box>
 
-        {/* Footer */}
-        <Box
-          position="absolute"
-          bottom={4}
-          textAlign="center"
-        >
-          <Text fontSize="xs" color="whiteAlpha.800">
-            © 2024 FlotaAdmin. Todos los derechos reservados.
-          </Text>
-        </Box>
-      </Container>
+      </Box>
+      
+      {/* Footer - positioned at bottom of screen */}
+      <Box
+        position="absolute"
+        bottom={4}
+        left={0}
+        right={0}
+        textAlign="center"
+        zIndex={1}
+      >
+        <Text fontSize="xs" color="whiteAlpha.700">
+          © 2024 FlotaAdmin
+        </Text>
+      </Box>
     </Box>
   );
 };

@@ -10,6 +10,7 @@ import {
   Divider,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import UserAvatar from './UserAvatar';
 import { useUser } from '../contexts/UserContext';
 
@@ -122,7 +123,12 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, isOpe
     },
   ];
 
+  const navigate = useNavigate();
+
   const handleSectionChange = (section: string) => {
+    // Navigate to the route
+    navigate(`/${section}`);
+    // Also update local state for consistency
     onSectionChange(section);
     if (isMobile) {
       onClose();
@@ -148,7 +154,20 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, isOpe
       <VStack spacing={0} align="stretch">
         {/* Header */}
         <Box p={6} borderBottom="1px solid" borderColor={borderColor}>
-          <HStack spacing={3} mb={4}>
+          <HStack 
+            spacing={3} 
+            mb={4}
+            cursor="pointer"
+            onClick={() => handleSectionChange('dashboard')}
+            _hover={{
+              bg: hoverBg,
+              transform: 'translateY(-1px)',
+            }}
+            transition="all 0.2s ease"
+            borderRadius="lg"
+            p={3}
+            mx={-3}
+          >
             <Text fontSize="2xl">🚛</Text>
             <VStack align="start" spacing={0}>
               <Text fontSize="lg" fontWeight="bold" color={logoColor}>

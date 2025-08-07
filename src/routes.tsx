@@ -11,6 +11,8 @@ export default function AppRoutes({ isLoggedIn, onLogin }: { isLoggedIn: boolean
       <Route path="/login" element={<LoginScreen onLogin={onLogin} />} />
       <Route path="/dashboard" element={renderLayout('dashboard')} />
       <Route path="/vehicles" element={renderLayout('vehicles')} />
+      <Route path="/vehicle-details" element={renderLayout('vehicle-details')} />
+      <Route path="/vehicle-edit" element={renderLayout('vehicle-edit')} />
       <Route path="/maintenance" element={renderLayout('maintenance')} />
       <Route path="/damages" element={renderLayout('damages')} />
       <Route path="/tickets" element={renderLayout('tickets')} />
@@ -18,6 +20,7 @@ export default function AppRoutes({ isLoggedIn, onLogin }: { isLoggedIn: boolean
       <Route path="/mileage" element={renderLayout('mileage')} />
       <Route path="/revisions" element={renderLayout('revisions')} />
       <Route path="/consumption" element={renderLayout('consumption')} />
+      <Route path="/settings" element={renderLayout('settings')} />
       <Route path="/analytics" element={renderLayout('analytics')} />
       <Route path="/departments" element={renderLayout('departments')} />
       <Route path="/profile" element={renderLayout('profile')} />
